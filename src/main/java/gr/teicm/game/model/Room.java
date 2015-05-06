@@ -10,13 +10,16 @@ import java.util.List;
 public class Room {
     private String name;
     private String description;
+    private String fullDescription;
     private List<Exit> exits;
     private LinkedList<Item> items;
     private String string;
     private PlayerState playerState;
+
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+        this.fullDescription = "";
         this.exits = new ArrayList<>();
         this.items = new LinkedList<>();
         this.playerState=PlayerState.getInstance();
@@ -34,18 +37,22 @@ public class Room {
 
         return description;
     }
+
     public String getfullDescription() {
+        fullDescription = description;
         for (Item item : items) {
-            if (!description.contains(item.getItemDescription()))
-                description += item.getItemDescription();
+            if (!fullDescription.contains(item.getItemDescription()))
+                fullDescription += item.getItemDescription();
         }
-        return description;
+        return fullDescription;
     }
+
     public void addItem(Item item) {
 
 
         items.add(item);
     }
+
     public LinkedList<Item> getItems() {
         return items;
     }
@@ -57,7 +64,6 @@ public class Room {
             description.replaceAll(item.getItemDescription(),"");
 
     }
-
 
     public String getName() {
         return name;
